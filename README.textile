@@ -81,11 +81,11 @@ Fill  @$column['__repid']@ with @$this->flatrep->get_insert_id()@ to get last ID
 
 <b>Perpare Column with this structure</b>
 
-<code>
+<pre>
 $column['__repid'] = $this->flatrep->get_insert_id();
 $column['..key..'] = '..value..';
 $get_column[] = $column;
-</code>
+</pre>
 
 Example:
 <pre>
@@ -113,6 +113,16 @@ Example:
 $this->flatrep->file("sldconf");
 echo $this->flatrep->read();
 </pre>
+
+
+h3. View Data with Sorting Data
+
+Use this @$this->flatrep->sortir($sort_type, $key_in);@ to sortir data;
+
+@$sort_type@  is sortir type is ASC OR DESC
+@$key_in@  is the key that use to sort
+
+
 
 
  
