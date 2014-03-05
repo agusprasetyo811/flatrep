@@ -1,5 +1,57 @@
 h1. FlatRep
 
-FlatRep is Flat repository. make CRUD data in FILE with PHP (Codeigniter) noSQL
+FlatRep is Flat repository. Make CRUD data in FILE with PHP (Codeigniter) noSQL
+The data will be save into a file with json and encripted with blowfish algoritm
+
+h1. What We Can Do
+
+With Flatrep we can :
+
+* Read Data
+* Insert Data
+* Update Data
+* Delete Data
+* Search Data
+* Sorting Data
+* Limited Data 
+
+h1. How to Use
+
+h3. Installation
+
+* In Codeigniter, Adding to libraries folder and load it (Recomended in autoload.php)
+* In pure PHP, Add to spesific folder(whatever) and  Instance this class. 
+
+
+h3. FlatRep Configuration
+
+@$conf['repo'] = '';@
+This is path Repository that refer to spesific folder which one to save a file. 
+
+@$conf['key'] = '';@
+FlatRep use a Key to encript file data.
+
+@$this->flatrep->config($conf);@
+This method use to Execute this configuration. 
+
+
+
+Example :
+
+<b>With a Key</b>
+<pre>
+
+$conf['repo'] = "assets/conf/";
+$conf['key'] = "omapslab";
+$this->flatrep->config($conf);
+</pre> 
+
+<b>Without a Key</b>
+<pre>
+
+$conf['repo'] = "assets/conf/";
+$this->flatrep->config($conf);
+</pre>
+
 
 
