@@ -77,7 +77,7 @@ h3. Insert Data (Create)
 
 Just Perpare Column
 The column there must be @$column['__repid']@ that will be primary key 
-Fill  @$column['__repid']@ with @$this->flatrep->get_insert_id()@ to get last ID (autoincrement)
+Fill  @$column['__repid']@ with @$this->flatrep->get_insert_id();@ to get last ID (autoincrement)
 
 <b>Perpare Column with this structure</b>
 
@@ -103,7 +103,7 @@ $this->flatrep->create($get_column);
 
 h3. View data (Read) 
 
-View the data with @$this->flatrep->read()@
+View the data with @$this->flatrep->read();@
 This method will be return json Data
 
 
@@ -124,7 +124,7 @@ Use this @$this->flatrep->sortir($sort_type, $key_in);@ to sortir data
 
 <b>Sort Type</b>
 * SORT_ASC = Sort Asceding
-* SORT_DEC = Sort Desceding
+* SORT_DESC = Sort Desceding
 
 Example:
 <pre>
@@ -133,6 +133,87 @@ $this->flatrep->file("sldconf");
 $this->flatrep->sortir(SORT_ASC, '__repid');
 echo $this->flatrep->read());
 </pre>
+
+h3. Searching Data 
+
+Use this @$this->flatrep->search($search, $key_in);@
+
+@$search@  is what we will searching
+@$key_in@  is when the column will be search
+
+Example:
+<pre>
+
+$this->flatrep->file("sldconf");
+$this->flatrep->search(agus, 'email');
+echo $this->flatrep->read());
+</pre>
+
+h3. Limit Data
+
+Use this @$this-flatrep->limit($limit, $perpage);@
+
+@$limit@  is what we will showing data 
+@$perpage@  is how we will showing data perpage
+
+Example:
+
+<b>Showing 5 Data</b>
+<pre>
+
+$this->flatrep->file("sldconf");
+$this->flatrep->limit(5);
+echo $this->flatrep->read());
+</pre>
+
+<b>Showing 5 with 10 perpage Data</b>
+<pre>
+
+$this->flatrep->file("sldconf");
+$this->flatrep->limit(5, 10);
+echo $this->flatrep->read());
+</pre>
+
+h3. Count Data
+
+Just use @$this->flatrep->count_data();@ to get count of Data
+
+Example:
+<pre>
+
+$this->flatrep->file("sldconf");
+echo $this->flatrep->count_data());
+</pre>
+
+h3. Update Data
+
+FlatRep use recreate data to update something 
+So just call @$this->flatrep->create($get_column);@ and Flatrep will recreate data 
+
+
+h3. Delete Data
+
+Use @$this->flatrep->delete($id, $primary_key_column);@
+
+@$id@ = get From @$column['__repid']@ 
+@$primary_key_column@ = column that be primary key
+
+Example:
+<pre>
+
+$this->flatrep->file("sldconf");
+$this->flatrep->delete($id, '__repid');
+</pre>
+
+
+
+
+====
+OMAPSLAB
+
+
+
+
 
 
 
