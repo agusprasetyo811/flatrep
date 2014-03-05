@@ -76,8 +76,8 @@ h3. Insert Data (Create)
 @$this->flatrep->create($get_column);@
 
 Just Perpare Column
-The column must be @$column['__repid']@ that will be primary key 
-Fill  @$column['__repid']@ with @$this->flatrep->get_insert_id()@ to get last ID (autoincrement);
+The column there must be @$column['__repid']@ that will be primary key 
+Fill  @$column['__repid']@ with @$this->flatrep->get_insert_id()@ to get last ID (autoincrement)
 
 <b>Perpare Column with this structure</b>
 
@@ -117,10 +117,23 @@ echo $this->flatrep->read();
 
 h3. View Data with Sorting Data
 
-Use this @$this->flatrep->sortir($sort_type, $key_in);@ to sortir data;
+Use this @$this->flatrep->sortir($sort_type, $key_in);@ to sortir data
 
-@$sort_type@  is sortir type is ASC OR DESC
+@$sort_type@  is sortir type is ASC or DESC
 @$key_in@  is the key that use to sort
+
+<b>Sort Type</b>
+* SORT_ASC = Sort Asceding
+* SORT_DEC = Sort Desceding
+
+Example:
+<pre>
+
+$this->flatrep->file("sldconf");
+$this->flatrep->sortir(SORT_ASC, '__repid');
+echo $this->flatrep->read());
+</pre>
+
 
 
 
