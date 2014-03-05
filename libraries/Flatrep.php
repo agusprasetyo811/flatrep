@@ -261,12 +261,12 @@ class Flatrep {
 		if ($repid == NULL || $in == NULL) {
 			exit('ERROR WHEN DELETE, REPID AND KEY IN NOT SET');
 		} else {
-			$data = json_decode($this->reading_file($this->get_file()), TRUE);
-			
+			$get_data = $this->reading_file($this->get_file());
+			$data = json_decode($this->decode_file($get_data, $this->get_key()), TRUE);
 			$get_index = $this->array_search_multidimention($repid, $in, $data);
 			unset($data[$get_index[0]]);
-			$this->write_to_file($this->encode_file($data, $this->get_key()), json_encode(array_values($data)));
-			return json_encode(array_values($data));
+			$this->write_to_file($this->get_file(), $this->encode_file(json_encode(array_values($data)), $this->get_key()));
+			return  json_encode(array_values($data));
 		}
 		
 	}
