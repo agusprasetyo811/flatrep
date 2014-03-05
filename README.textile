@@ -25,15 +25,16 @@ h3. Installation
 
 h3. FlatRep Configuration
 
+This config use in Codeigniter. Adding config in construct
+
 @$conf['repo'] = '';@
-This is path Repository that refer to spesific folder which one to save a file. 
+This is path Repository that refer to spesific folder which one to save a file (Imagine this is our Database). 
 
 @$conf['key'] = '';@
 FlatRep use a Key to encript file data.
 
 @$this->flatrep->config($conf);@
 This method use to Execute this configuration. 
-
 
 
 Example :
@@ -54,4 +55,65 @@ $this->flatrep->config($conf);
 </pre>
 
 
+h3. File Data 
+
+Initial the file that use to save data with this:
+
+@$this->flatrep->file($filename);@
+
+@$filename@ is the name of file
+
+Example:
+
+@$this->flatrep->file("slider_conf");@ 
+
+(Imagine this is Our Table)
+
+
+
+h3. Insert Data (Create)
+
+@$this->flatrep->create($get_column);@
+
+Just Perpare Column
+The column must be @$column['__repid']@ that will be primary key 
+Fill  @$column['__repid']@ with @$this->flatrep->get_insert_id()@ to get last ID (autoincrement);
+
+<b>Perpare Column with this structure</b>
+
+<code>
+$column['__repid'] = $this->flatrep->get_insert_id();
+$column['..key..'] = '..value..';
+$get_column[] = $column;
+</code>
+
+Example:
+<pre>
+
+$column['__repid'] = $this->flatrep->get_insert_id();
+$column['name'] = 'Omapslab';
+$column['email'] = 'agusprasetyo811@gmail.com';
+$get_column[] = $column;
+
+$this->flatrep->file("sldconf");
+$this->flatrep->create($get_column);
+</pre>
+
+
+
+h3. View data (Read) 
+
+View the data with @$this->flatrep->read()@
+This method will be return json Data
+
+
+Example: 
+<pre>
+
+$this->flatrep->file("sldconf");
+echo $this->flatrep->read();
+</pre>
+
+
+ 
 
