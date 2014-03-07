@@ -3,6 +3,13 @@ h1. FlatRep
 FlatRep is Flat repository. Make CRUD data in FILE with PHP (Codeigniter) noSQL
 The data will be save into a file with json and encripted with blowfish algoritm
 
+
+Get More info Like this page :
+https://www.facebook.com/omapslab
+
+Follow Twitter
+@omapslab
+
 h1. What We Can Do
 
 With Flatrep we can :
