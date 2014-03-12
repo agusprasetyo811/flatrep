@@ -35,7 +35,7 @@ class Flatrep {
 	 
 	
 	public function __construct() {
-		$this->CI =& get_instance();
+		//$this->CI =& get_instance();
 	}
 	
 	/**
@@ -108,6 +108,10 @@ class Flatrep {
 				}	
 			}
 			$this->file = $path.$file .base64_decode($this->flatreptype);
+			
+			if (!file_exists($this->file)) {
+				write_to_file($this->file, $this->encode_file('[]', $this->key));	
+			}
 		} else {
 			exit('OMAPS FILE NOT FOUND');
 		}
@@ -168,13 +172,14 @@ class Flatrep {
 		
 		$file = reading_file($file);
 		
-		if ($file != '') {
-			
+		if (trim($file) == '') {
+			return json_encode(array());
+		} else {
 			$file = ($this->get_limit != '') ? json_decode($this->decode_file($this->get_limit, $this->get_key())) : json_decode($this->decode_file($file, $this->get_key()), true);
 			$search = $this->get_search();
 			$column = $this->get_search_column();
-			
-			
+				
+				
 			if ($search != NULL) {
 				$get_index = $this->array_search_multidimention($search, $column, $file);
 				foreach ($get_index as $row) {
@@ -184,11 +189,9 @@ class Flatrep {
 			} else {
 				$read = $file;
 			}
-			
+				
 			$read = ($this->sort != NULL || $this->key_in != NULL) ? $this->sort_array_by_column($read, $this->key_in, $this->sort, SORT_NUMERIC) : $this->sort_array_by_column($read, '__repid', $sort, SORT_NUMERIC);
 			return json_encode($read);
-		} else {
-			return json_encode(array());
 		}
 	}
 	
@@ -225,12 +228,13 @@ class Flatrep {
 	public function count_data() {
 		$file = $this->get_file();
 		$file = $this->reading_file($file);
+		
 		if ($file) {
 			$file = json_decode($this->decode_file($file, $this->get_key()), TRUE);
 			$file = (is_array($file)) ? $file : array();
 			return count($file);
 		} else {
-			exit('COUNT FILE NOT EXISTS');
+			return 0;
 		}
 	}
 	
@@ -262,12 +266,17 @@ class Flatrep {
 		if ($repid == NULL || $in == NULL) {
 			exit('ERROR WHEN DELETE, REPID AND KEY IN NOT SET');
 		} else {
-			$get_data = $this->reading_file($this->get_file());
-			$data = json_decode($this->decode_file($get_data, $this->get_key()), TRUE);
-			$get_index = $this->array_search_multidimention($repid, $in, $data);
-			unset($data[$get_index[0]]);
-			$this->write_to_file($this->get_file(), $this->encode_file(json_encode(array_values($data)), $this->get_key()));
-			return  json_encode(array_values($data));
+			if ($this->get_file()) {
+				$get_data = $this->reading_file($this->get_file());
+				$data = json_decode($this->decode_file($get_data, $this->get_key()), TRUE);
+				$get_index = $this->array_search_multidimention($repid, $in, $data);
+				unset($data[$get_index[0]]);
+				$this->write_to_file($this->get_file(), $this->encode_file(json_encode(array_values($data)), $this->get_key()));
+				return  json_encode(array_values($data));
+			} else {
+				exit('OMAPS FILE NOT FOUND WHEN DELETE');
+			}
+			
 		}
 		
 	}
@@ -332,7 +341,7 @@ class Flatrep {
 			@array_multisort($sort_col, $dir, $arr);
 			return json_decode(json_encode($arr));
 		} else {
-			exit('ERROR OR FILE IS NOT ARRAY');
+			return json_decode($this->decode_file($this->reading_file($this->get_file()), $this->get_key()));
 		}
 	}
 	
