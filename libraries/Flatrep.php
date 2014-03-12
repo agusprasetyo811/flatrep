@@ -120,6 +120,7 @@ class Flatrep {
 	
 	
 	public function get_insert_id() {
+		
 		if ($this->get_file() != NULL) {
 			return $this->count_data() + 1;
 		} else {
@@ -223,9 +224,9 @@ class Flatrep {
 	 */
 	public function count_data() {
 		$file = $this->get_file();
-		
+		$file = $this->reading_file($file);
 		if ($file) {
-			$file = json_decode($this->reading_file($file), TRUE);
+			$file = json_decode($this->decode_file($file, $this->get_key()), TRUE);
 			$file = (is_array($file)) ? $file : array();
 			return count($file);
 		} else {
